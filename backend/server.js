@@ -10,7 +10,7 @@ app.get("/api/products", async (req, res) => {
     const products = await Product.find({});
     res.status(200).json({ data: products, sucess: true });
   } catch (error) {
-    console.log(error);
+    console.log("there id an error while feching products", error);
   }
 });
 app.post("/api/products", async (req, res) => {
