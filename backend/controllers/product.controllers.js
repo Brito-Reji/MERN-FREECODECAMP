@@ -40,7 +40,7 @@ const updateProduct = async (req, res) => {
     const updatedProduct = await Product.findByIdAndUpdate(id, product, {
       new: true,
     });
-    4;
+
     res.status(200).json({ success: true, message: updatedProduct });
   } catch (error) {
     res.status(404).json({ success: false, message: "server error" });
