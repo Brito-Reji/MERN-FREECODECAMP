@@ -4,7 +4,7 @@ import Product from "../models/product.model.js";
 const getProducts = async (req, res) => {
   try {
     const products = await Product.find({});
-    res.status(200).json({ data: products, sucess: true });
+    return res.status(200).json({ data: products, sucess: true });
   } catch (error) {
     console.log("there id an error while feching products", error);
   }
@@ -13,7 +13,7 @@ const getProducts = async (req, res) => {
 const createProduct = async (req, res) => {
   const product = req.body;
   if (!(product.name || product.price || product.image)) {
-    res.status(400).json({
+    return res.status(400).json({
       success: false,
       message: "please provide all fields",
     });
@@ -34,14 +34,14 @@ const updateProduct = async (req, res) => {
   const { id } = req.params;
   const product = req.body;
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    res.status(404).json({ message: "no id found", sucess: false });
+    return res.status(404).json({ message: "no id found", sucess: false });
   }
   try {
     const updatedProduct = await Product.findByIdAndUpdate(id, product, {
       new: true,
     });
 
-    res.status(200).json({ success: true, message: updatedProduct });
+    res.status(200).json({ success: true, data: updatedProduct });
   } catch (error) {
     res.status(404).json({ success: false, message: "server error" });
   }
@@ -50,7 +50,7 @@ const updateProduct = async (req, res) => {
 const deleteProduct = async (req, res) => {
   const { id } = req.params;
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    res.status(404).json({ message: "not id found", sucess: false });
+    return res.status(404).json({ message: "not id found", sucess: false });
   }
   try {
     await Product.findByIdAndDelete(id);

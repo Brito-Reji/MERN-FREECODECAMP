@@ -9,7 +9,7 @@ const HomePage = () => {
   useEffect(() => {
     fetchProducts();
   }, [fetchProducts]);
-  console.log(products);
+  // console.log(products);
 
   return (
     <Container maxW={"container.xl"} py={12}>
